@@ -15,10 +15,13 @@
 		}}
 		<!-- Header hook for plugins -->
 		{{
-			'application.css' | asset_url | stylesheet_tag
+			'bootstrap.min.css' | asset_url | stylesheet_tag
 		}}
 		{{
-			'bootstrap.min.css' | asset_url | stylesheet_tag
+			'global.css' | asset_url | stylesheet_tag
+		}}
+		{{
+			'application.css' | asset_url | stylesheet_tag
 		}}
 	</head>
 	<body>
