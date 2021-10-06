@@ -1,0 +1,87 @@
+{% assign current_product = product.selected_or_first_available_variant %} {%
+assign product_image = current_product.featured_image | default:
+product.featured_image %}
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 col-12">
+			<img
+				src="{{ product_image | img_url: 'large' }}"
+				alt="{{ product_image.alt }}"
+				class="img-fluid"
+				id="mainProductImage"
+			/>
+			{% for image in product.images %}
+			<img src="{{ image.src | img_url: 'meduim' }}" alt="{{ image.alt }}" />
+			{% endfor %}
+		</div>
+		<div class="col-md-6 col-12">
+			<h1>{{ product.title }}</h1>
+			<p>{{ current_product.price | money_with_currency }}</p>
+
+			{% form 'product', product, class: "product-product", id: "form-select" %}
+			<div class="mb-3">
+				<select
+					name="id"
+					id="productSelect"
+					class="form-select current-font-size"
+				>
+					{% for variant in product.variants %} {% if variant.available %}
+					<option value="{{ variant.id }}">
+						{{ variant.title }}
+					</option>
+					{% else %}
+					<option disabled="disabled" value="{{ variant.id }}">
+						{{ variant.title }}
+					</option>
+					{% endif %} {% endfor %}
+				</select>
+			</div>
+			<div class="mb-3">
+				<input
+					type="number"
+					name="quantity"
+					id="Quantity"
+					class="form-control current-font-size"
+					value="1"
+					min="1"
+				/>
+			</div>
+
+			<button
+				class="
+					btn btn-secondary btn-lg
+					w-100
+					rounded-0
+					py-3
+					font-weight-bolder
+					current-font-size
+				"
+				type="submit"
+				name="add"
+			>
+				Add To Cart
+			</button>
+
+			{% if section.settings.dynamic_buttons_checkbox == true %}
+				{{ form | payment_button }}
+			{% endif %}
+			
+			{% endform %}
+		</div>
+	</div>
+</div>
+
+{% schema %}
+{
+	"name": "Product Page",
+	"settings": [
+		{
+			"type": "checkbox",
+			"id": "dynamic_buttons_checkbox",
+			"label": "Enable Dynamic Buttons",
+			"default": false
+		}
+	]
+}
+{% endschema %}

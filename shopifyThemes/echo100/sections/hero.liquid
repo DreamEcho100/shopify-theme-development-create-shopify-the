@@ -1,13 +1,13 @@
 <section class="inner-hero-section">
-	<div class="container py-5">
-		{% if section.settings.image != blank %}
-		<img src="{{ section.settings.image | img_url }}" alt="" />
-		{% else %} {% capture current %}{% cycle 1, 2 %}{% endcapture %}
-		{{
-			'lifestyle-' | append: current | placeholder_svg_tag: 'placeholder-svg'
-		}}
-		{% endif %}
+  {% if section.settings.image != blank %}
+  <img src="{{ section.settings.image | img_url }}" alt="" />
+  {% else %} {% capture current %}{% cycle 1, 2 %}{% endcapture %}
+  {{
+    'lifestyle-' | append: current | placeholder_svg_tag: 'placeholder-svg'
+  }}
+  {% endif %}
 
+	<div class="container py-5">
 		<div class="row">
 			<div class="col-lg-6 col-md-8 mx-auto">
 				<h2>{{ section.settings.title }}</h2>

@@ -182,8 +182,10 @@ body {
 }
 
 body,
-button,
 p,
+button,
+select,
+input,
 a {
 	font-size: var(--current-font-size);
 }
@@ -369,6 +371,10 @@ code[data-code-inline='true'] {
 	filter: grayscale(1);
 	user-select: none;
 	cursor: not-allowed;
+}
+
+.current-font-size {
+	font-size: var(--current-font-size);
 }
 
 .margin-0 {
