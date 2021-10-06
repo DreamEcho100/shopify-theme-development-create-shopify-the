@@ -16,7 +16,7 @@
           {% endif %}
           <div class="card-body">
             <h3>
-              <a href="{{ product.url }}">{{ product.title }}</a>
+              <a title="{{ product.title }}" href="{{ product.url }}">{{ product.title }}</a>
             </h3>
             <p>{{ product.price | money_without_trailing_zeros }}</p>
           </div>

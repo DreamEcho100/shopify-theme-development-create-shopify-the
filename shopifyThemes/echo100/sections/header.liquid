@@ -1,37 +1,53 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        {% for link in linklists.main-menu.links %}
-          {% assign child_list_handle = link.title | handleize %}
-          {% if linklists[child_list_handle].links != blank %}
-            <a class="nav-link" href="{{ link.url }}">{{ link.title }}</a>
-            [{% for childlink in linklists[child_list_handle].links %}
-              <a class="nav-link" href="{{ childlink.url }}">{{ childlink.title | escape }}</a>
-            {% endfor %}]
-          {% else %}
-            <a class="nav-link" href="{{ link.url }}">{{ link.title }}</a>
-          {% endif %}
-        {% endfor %}
-        <a class="nav-link" href="/cart">cart</a>
-        {% comment %} <a class="nav-link active" aria-current="page" href="#">Home</a> {% endcomment %}
-        {% comment %} <a class="nav-link disabled">Disabled</a> {% endcomment %}
-      </div>
-    </div>
-  </div>
+	<div class="container-fluid">
+		<a class="navbar-brand" href="#">Navbar</a>
+		<button
+			title="show navbar"
+			class="navbar-toggler"
+			type="button"
+			data-bs-toggle="collapse"
+			data-bs-target="#navbarNavAltMarkup"
+			aria-controls="navbarNavAltMarkup"
+			aria-expanded="false"
+			aria-label="Toggle navigation"
+		>
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+			<nav class="navbar-nav">
+				{% for link in linklists.main-menu.links %} {% assign child_list_handle
+				= link.title | handleize %} {% if linklists[child_list_handle].links !=
+				blank %}
+				<li class="nav-item">
+					<a title='{{ link.title }} page' class="nav-link" href="{{ link.url }}">{{ link.title }}</a>
+				</li>
+				[{% for childlink in linklists[child_list_handle].links %}
+				<li class="nav-item">
+					<a title='{{ childlink.title | escape }} page' class="nav-link" href="{{ childlink.url }}">{{
+						childlink.title | escape
+					}}</a>
+				</li>
+				{% endfor %}] {% else %}
+				<li class="nav-item">
+					<a title='{{ link.title }} page' class="nav-link" href="{{ link.url }}">{{ link.title }}</a>
+				</li>
+				{% endif %} {% endfor %}
+				<li class="nav-item">
+					<a title='cart page' class="nav-link" href="/cart">cart</a>
+				</li>
+				{% comment %}
+				<a class="nav-link active" aria-current="page" href="#">Home</a> {%
+				endcomment %} {% comment %} <a class="nav-link disabled">Disabled</a> {%
+				endcomment %}
+			</nav>
+		</div>
+	</div>
 </nav>
 
-
-  {% if shop.customer_accounts_enabled %}
-    {% if customer %}
-      <a href="/account">account</a>
-      {{ 'log out'  | customer_logout_link }}
-    {% else %}
-      {{ 'log in ' | customer_login_link }}
-      {{ 'register' | customer_register_link }}
-    {% endif %}
-  {% endif %}
+{% if shop.customer_accounts_enabled %} {% if customer %}
+<a href="/account">account</a>
+{{ 'log out' | customer_logout_link }}
+{% else %}
+{{ 'log in ' | customer_login_link }}
+{{ 'register' | customer_register_link }}
+{% endif %} {% endif %}
