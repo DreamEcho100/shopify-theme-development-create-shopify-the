@@ -186,6 +186,7 @@ p,
 button,
 select,
 input,
+li,
 a {
 	font-size: var(--current-font-size);
 }
