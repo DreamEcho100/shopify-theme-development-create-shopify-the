@@ -1,18 +1,57 @@
-{% paginate collection.products by 2 %}
-  <h1>{{ collection.title }}</h1>
-  {% for product in collection.products %}
-    <div>
-      <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
-      {{ product.price | money }}
-      {% unless product.available %}<br><strong>sold out</strong>{% endunless %}
-      <a href="{{ product.url | within: collection }}">
-        <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}">
-      </a>
+<main class="container mb-3">
+	{% paginate collection.products by 2 %}
+	<header class="row my-3">
+		<h1 class="text-center">{{ collection.title }}</h1>
+	</header>
+
+	<section class="row justify-content-center">
+		<div class="d-flex align-items-center justify-content-around flex-wrap items-hover-effect">
+			{% for product in collection.products %}
+			<div
+				class="
+					d-flex
+					align-items-center
+					justify-content-center
+					my-3
+          mx-2
+				"
+			>
+				<!-- <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+          {{ product.price | money }}
+          {% unless product.available %}<br><strong>sold out</strong>{% endunless %}
+          <a href="{{ product.url | within: collection }}">
+            <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}">
+          </a> -->
+				<div class="card item" style="width: 30rem">
+					{% assign image = product.featured_media.preview_image %} {% if image
+					!= blank %}
+					<img
+						class="card-img-top"
+						src="{{ image | img_url: 'medium' }}"
+						alt="{{ product.title }}"
+					/>
+					{% else %}
+					{{ 'product-1' | placeholder_svg_tag: 'card-img-top' }}
+					{% endif %}
+					<div class="card-body">
+						<h3>
+							<a title="{{ product.title }}" href="{{ product.url }}">{{
+								product.title
+							}}</a>
+						</h3>
+						<p>{{ product.price | money_without_trailing_zeros }}</p>
+					</div>
+				</div>
+			</div>
+			{% else %}
+			<p>no matches</p>
+			{% endfor %}
+		</div>
+
+    <div class='text-center'>
+      {% if paginate.pages > 1 %}
+      {{ paginate | default_pagination }}
+      {% endif %} {% endpaginate %}
     </div>
-  {% else %}
-    <p>no matches</p>
-  {% endfor %}
-  {% if paginate.pages > 1 %}
-    {{ paginate | default_pagination }}
-  {% endif %}
-{% endpaginate %}
+	</section>
+</main>
