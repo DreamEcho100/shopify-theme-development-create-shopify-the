@@ -5,6 +5,22 @@
 	</header>
 
 	<section class="row justify-content-center">
+		<select
+			name="sorting"
+			id="sort_by"
+			class="form-select form-select-sm w-25 current-font-size"
+		>
+			{% for option in collection.sort_options %}
+			<option value="{{ option.value }}" name="{{ option.name }}"
+			{% if option.value == collection.sort_by %}
+				selected
+			{% endif %}
+			>
+				{{ option.name }}
+			</option>
+			{% endfor %}
+		</select>
+
 		<div
 			class="
 				d-flex
@@ -58,21 +74,15 @@
 						paginate.previous.title
 					}}</a>
 				</li>
-				{% endif %}
-				
-				{% for part in paginate.parts %}
-					{% if part.is_link %}
-						<li class="page-item">
-							<a href="{{ part.url }}" class="page-link">{{ part.title }}</a>
-						</li>
-						{% else %}
-						<li class="page-item disabled">
-							<a href="{{ part.url }}" class="page-link">{{ part.title }}</a>
-						</li>
-					{% endif %}
-				{% endfor %}
-				
-				{% if paginate.next.is_link %}
+				{% endif %} {% for part in paginate.parts %} {% if part.is_link %}
+				<li class="page-item">
+					<a href="{{ part.url }}" class="page-link">{{ part.title }}</a>
+				</li>
+				{% else %}
+				<li class="page-item disabled">
+					<a href="{{ part.url }}" class="page-link">{{ part.title }}</a>
+				</li>
+				{% endif %} {% endfor %} {% if paginate.next.is_link %}
 				<li class="page-item">
 					<a href="{{ paginate.next.url }}" class="page-link">{{
 						paginate.next.title
@@ -81,7 +91,6 @@
 				{% endif %}
 			</ul>
 		</nav>
-		{% endif %}
-		{% endpaginate %}
+		{% endif %} {% endpaginate %}
 	</section>
 </main>
