@@ -1,0 +1,64 @@
+<section class="sidebar-section">
+  {% for block in section.blocks %}
+    {% assign item = block.settings %}
+    <div style="margin-bottom: 1em; border: 0.5rem solid hsla(248, 10%, 77%, 0.3); border-radius: 1rem; padding: 1em">
+      <p style="margin: 0; margin-bottom: 0.5em;">
+        <strong>{{ item.title }}</strong>
+      </p>
+      {% if block.type == 'image' %}
+        <a href="{{ item.url }}" title="{{ item.title }}">
+          <img src="{{ item.image | img_url: 'master' }}" alt="" class="w-100">
+        </a>
+        {% else %}
+        {{ item.description }}
+      {% endif %}
+    </div>
+  {% endfor %}
+</section>
+
+{% schema %}
+{
+  "name": "Sidebar",
+  "blocks": [
+    {
+      "name": "Sidebar Image",
+      "type": "image",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Sidebar Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "name": "Sidebar Text",
+      "type": "text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Sidebar Title"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

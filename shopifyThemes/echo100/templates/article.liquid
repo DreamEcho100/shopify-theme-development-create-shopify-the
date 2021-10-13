@@ -10,6 +10,10 @@
   <div class="col-md-5 p-lg-5 mx-auto my-5">
     <h1 style='font-size: var(--size-32);'>{{ article.title }}</h1>
     <p class="lead current-font-size">By: {{ author }}, published at {{ date }}</p>
+    <div class="w-90 mx-auto my-3">
+      <img style="max-width: 100%;" src="{{ article.image.src | img_url: 'master' }}" alt="{{ article.image.alt }}">
+    </div>
+    <p><small>{{ article.tags }}</small></p>
   </div>
 </header>
 
@@ -68,8 +72,10 @@
           {% endform %}
         </div>
       </div>
+      <div class="col-12 col-md-4">
+        {% section 'sidebar' %}
+      </div>
     </div>
-    <div class="col-12 col-md-4"></div>
   </div>
 </section>
 {% endif %}

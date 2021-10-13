@@ -33,4 +33,3 @@ const article = {
 		src: 'https://cdn.shopify.com/s/files/1/0600/4159/3072/articles/4c5e63bd58838e907f24bf8b87ac2f19571f3fb59279db43155dcd2873b76d36.jpg?v=1633775281',
 	},
 };
-('//cdn.shopify.com/s/files/1/0600/4159/3072/articles/4c5e63bd58838e907f24bf8b87ac2f19571f3fb59279db43155dcd2873b76d36.jpg?v=1633775281');
