@@ -1,0 +1,95 @@
+<footer class="footer-section bg-light py-5 mt-5">
+	<div class="container">
+		<div class="row row-cols-{{ section.settings.col_num }}">
+			{% for block in section.blocks %}
+      {% assign item = block.settings %}
+
+        <div class="col">
+
+          {% if block.type == 'link_list' %}
+            <h5>{{ item.title }}</h5>
+            {% assign footer_linklist = item.menu %}
+            <ul class="list-unstyled text-small">
+              {% for link in linklists[footer_linklist].links %}
+                <li>
+                  <a class="link" href="{{ link.url }}" title="{{ link.title | escape }}">
+                    <small>
+                      {{ link.title | escape }}
+                    </small>
+                  </a>
+                </li>
+                {% endfor %}
+              </ul>
+
+            {% else if block.type == 'text' %}
+            <img src="{{ item.logo | img_url: 'medium' }}" alt="" class="w-100 mb-8">
+            <h5>{{ item.title }}</h5>
+            <p>{{ item.description }}</p>
+          {% endif %}
+
+        </div>
+      {% endfor %}
+		</div>
+	</div>
+</footer>
+
+{{ 'application.js' | asset_url | script_tag }}
+{{ 'bootstrap.min.js' | asset_url | script_tag }}
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "range",
+      "id": "col_num",
+      "label": "Number of columns",
+      "min": 2,
+      "max": 4,
+      "default": 3
+    }
+  ],
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "type": "link_list",
+      "name": "Navigation",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Quick Links"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Store details",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Store Logo"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Store information"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
